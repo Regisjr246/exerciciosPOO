@@ -44,5 +44,5 @@ if(media>7){
 
 }
 
-let julia = new Estudante("Maria",20, [8, 7.5, 9.2, 6.8, 9.5]);
-console.log(julia.Media());
+let Maria = new Estudante("Maria",20, [8, 7.5, 9.2, 6.8, 9.5]);
+console.log(Maria.Media());
