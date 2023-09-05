@@ -1,7 +1,7 @@
 class ContaBancaria {
 
     titular: string;
-    saldo: number;
+    private saldo: number;
 
 
 
