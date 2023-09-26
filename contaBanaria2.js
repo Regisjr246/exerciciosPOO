@@ -48,9 +48,10 @@ class ContaPoupanca extends ContaBancaria2 {
 //CONTA CORRENTE
 const torsss = new ContaCorrente(1000);
 console.log("seu saldo é de " + torsss.consultarSaldo());
-console.log("vc sacou" + torsss.sacar(2000));
+console.log("vc sacou" + torsss.sacar(500));
 console.log(torsss.consultarSaldo());
 console.log(torsss.depositar(20));
 console.log(torsss.consultarSaldo());
 //CONTA POUPANÇA
-const regi = new console.log(torsss.consultarSaldo());
+const regi = new ContaPoupanca();
+console.log(torsss.consultarSaldo());
