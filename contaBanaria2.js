@@ -53,3 +53,4 @@ console.log(torsss.consultarSaldo());
 console.log(torsss.depositar(20));
 console.log(torsss.consultarSaldo());
 //CONTA POUPANÇA
+const regi = new console.log(torsss.consultarSaldo());
