@@ -1,20 +1,46 @@
 "use strict";
 var StatusPedido;
 (function (StatusPedido) {
-    StatusPedido["Aguardando"] = "Aguardando Preparo";
-    StatusPedido["Preparo"] = "Em Preparo";
-    StatusPedido["Entrega"] = "Saiu para Entrega";
+    StatusPedido["AguardandoPreparo"] = "Aguardando Preparo";
+    StatusPedido["EmPreparo"] = "Em Preparo";
+    StatusPedido["SaiuParaEntrega"] = "Saiu para Entrega";
     StatusPedido["Entrege"] = "Entregue.";
+    StatusPedido["ClienteAusente"] = "Cliente n\u00E3o localizado";
 })(StatusPedido || (StatusPedido = {}));
-class Pedido {
+class ProdutoPedido {
     constructor(nome, preco) {
-        this.nome = nome,
-            this.preco = preco;
-    }
-    adicionarProdutos() {
-        return this.nome + "com o valor R$" + this.preco + "foi adcionado ao pedido";
+        this.nome = nome;
+        this.preco = preco;
     }
 }
-let pedidoEntrega = new Pedido(["xtudo,xdragon"], [1, 1]);
-//let pedidoEntrega:StatusPedido = StatusPedido.Aguardando;
-console.log(pedidoEntrega.adicionarProdutos);
+class Pedido {
+    constructor() {
+        this.produtos = [];
+        this.status = StatusPedido.AguardandoPreparo;
+    }
+    adicionarProduto(Produto) {
+        this.produtos.push(Produto);
+        return "  Produto adcionado com sucesso!!";
+    }
+    atualizarStatus(status) {
+        this.status = status;
+    }
+    exibirStatus() {
+        return this.status;
+    }
+    exibirProdutosDoPedidos() {
+        console.log("Produtos do Pedidos:");
+        for (let index = 0; index < this.produtos.length; index++) {
+            console.log(" Produto:" + this.produtos[index].nome + "  R$" + this.produtos[index].preco.toFixed(2));
+        }
+    }
+}
+const produtoPedido = new ProdutoPedido("X-TUDO", 10);
+const outroProdutoPedido = new ProdutoPedido("X-FRANGO", 5);
+const novoPedido = new Pedido();
+novoPedido.adicionarProduto(produtoPedido);
+novoPedido.adicionarProduto(outroProdutoPedido);
+console.log("Statudo atual do Pedido: " + novoPedido.exibirStatus());
+novoPedido.atualizarStatus(StatusPedido.ClienteAusente);
+console.log("Statudo atual do Pedido:" + novoPedido.exibirStatus());
+novoPedido.exibirProdutosDoPedidos();
