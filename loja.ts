@@ -1,102 +1,172 @@
-class produtoLoja{
-    nome: string;
-    preço: number;
+class ProdutoLoja{
+nome:string;
+preco:number
+constructor( nomeProduto:string, precoProduto:number){
+this.nome = nomeProduto;
+this.preco=precoProduto;
+}}
 
-    constructor(nome: string, preço: number) {
-        this.nome = nome;
-        this.preço = preço;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class  CarrinhoDeCompora {
+PordutoCarrinho:ProdutoLoja[]=[];
+constructor(){
+}
+
+
+
+
+adicionarProduto(produto:ProdutoLoja){
+this.PordutoCarrinho.push(produto);
+}
+
+
+
+
+excluirPorduto(nomeDoProduto:string){
+this.PordutoCarrinho.filter((item)=>item.nome!==nomeDoProduto);
+}
+
+
+excluirPorduto2(produto:ProdutoLoja){
+    this.PordutoCarrinho.filter((item)=>item.nome!==produto.nome);
     }
-}
-class carrinho{
-    produtos: produtoLoja[] = [];
-
-    constructor(){}
-
-adicionarProduto(produto: produtoLoja){
-    this.produtos.push(produto);
-}
-listarCarrinho() {
-    console.log("Meu carrinho");
-    for(let i=0; i<this.produtos.length; i++){
-    console.log(this.produtos[i].nome+" R$ "+this.produtos[i].preço);
-}
-}
-apagar(produto:produtoLoja){
-    this.produtos= this.produtos.filter(item =>item.nome!= produto.nome);
-    return "Produto apagado";
-}
-preço(){
-    let soma =0;
-    for (let i=0; i<this.produtos.length; i++){
-        soma=soma+this.produtos[i].preço;
-    }console.log ("Sua compra é de R$ "+(soma.toFixed(2)))
-}
-}
-class loja{
-    estoque: produtoLoja[] = [];
-    carrinho= new carrinho();
-
-    constructor(){}
     
-    adicionarEstoque(estoque: produtoLoja){
-        this.estoque.push (estoque);
+
+calcularValorTotal(){
+    let soma = 0;
+    for(let i= 0; i< this.PordutoCarrinho.length; i++){
+      soma= soma +  this.PordutoCarrinho[i].preco;
     }
-    listarEstoque(){
-        console.log("estoque");
-        for(let i=0; i<this.estoque.length; i++){
-        console.log(this.estoque[i].nome+" R$ "+this.estoque[i].preço);
-    }
-    }
-    apagarEstoque(estoque:produtoLoja) {
-        this.estoque=this.estoque.filter(item =>item.nome!= estoque.nome);
-        return "produto removido do estoque"
-    }
-    adicionarNoCarrinho(produto: produtoLoja){
-        const produtoEncontrado = this.estoque.find(item => item.nome == produto.nome);
-        if (produtoEncontrado){
-            this.carrinho.adicionarProduto(produto);
-            return"Produto adicionado ao carrinho de compras";
-        }
-        else{
-            return "Produto não encontrado no estoque";
-        }
-    }
-    removerDoCarrinho(produto: produtoLoja){
-        this.carrinho.apagar (produto);
-        return "Produto apagado"
-    }
-    lista(){
-        this.carrinho.listarCarrinho();
-    }
-    custo(){
-        this.carrinho.preço();
-    }
+
+return soma.toFixed(2);
+
 }
 
-const objeto1 = new produtoLoja ("fita de led", 5.00)
-const objeto2 = new produtoLoja ("monitor 27 polegadas 120hz", 220.00)
-const objeto3 = new produtoLoja ("iphone 13", 100.00)
-const objeto4 = new produtoLoja ("tablet", 400.00)
-const meucarrinho = new carrinho();
-meucarrinho.adicionarProduto(objeto1);
-meucarrinho.adicionarProduto(objeto2);
-meucarrinho.adicionarProduto(objeto3);
-console.log(meucarrinho.listarCarrinho());
-console.log(meucarrinho.preço());
-console.log(meucarrinho.apagar(objeto2));
-console.log(meucarrinho.listarCarrinho());
-console.log(meucarrinho.preço());
-console.log("");
-const estoque = new loja();
-estoque.adicionarEstoque(objeto1);
-estoque.adicionarEstoque(objeto2);
-estoque.adicionarEstoque(objeto3);
-estoque.adicionarEstoque(objeto4);
-console.log(estoque.listarEstoque());
-console.log(estoque.apagarEstoque(objeto2));
-console.log(estoque.listarEstoque());
-console.log(estoque.adicionarNoCarrinho(objeto4));
-console.log(estoque.adicionarNoCarrinho(objeto1));
-console.log(estoque.removerDoCarrinho(objeto3));
-console.log(estoque.lista());
-console.log(estoque.custo());
+
+
+exibirProdutos(){
+console.log("Produtos do Carrinho:");
+for (let i=0; i<this.PordutoCarrinho.length;i++){
+    console.log("Produto:"+ this.PordutoCarrinho[i].nome + "R$" + this.PordutoCarrinho[i].preco.toFixed(2));
+}
+
+
+//const nomeDoProdutos= this.PordutoCarrinho.map(
+  //  item=> "Pordutos:" + item.nome + "R$" + item.preco.toFixed((2));
+    //console.log(nomeDoProdutos.join(","));
+//)
+
+
+
+}
+
+
+
+}
+
+
+class  Loja{
+produtosDoEstoque: ProdutoLoja[]=[];
+carrinhoDeComprar = new CarrinhoDeCompora();
+
+
+adicionarProdutoAoEstoque(produto:ProdutoLoja){
+this.produtosDoEstoque.push(produto);
+}
+
+
+removerProdutoDoEstoque(produto:ProdutoLoja){
+    this.produtosDoEstoque=this.produtosDoEstoque.filter(item=> item.nome !== produto.nome)
+}
+
+
+
+
+
+adicionarProdutoAoCarrinho(produto:ProdutoLoja){
+const produtoEncontrado = this.produtosDoEstoque.find(item=>item.nome ==produto.nome);
+
+
+if(produtoEncontrado){
+    this.carrinhoDeComprar.adicionarProduto(produtoEncontrado);
+    return "Produto adicionado ao carrinho de comprar";
+}
+else{
+    return "Produto não encontrado ao estoque da loja"
+}
+}
+
+
+
+
+removeverProdutoCarrinho(produto: ProdutoLoja){
+
+
+//this.carrinhoDeComprar.excluirPorduto(produto.nome);
+this.carrinhoDeComprar.excluirPorduto2(produto);
+
+}
+
+exibirProdutoCariinho(){
+this.carrinhoDeComprar.exibirProdutos();
+}
+}
+
+//Criando Produtos
+const ProdutoLoja1 = new ProdutoLoja("camiseta1",29.99);
+const ProdutoLoja2 = new ProdutoLoja("camiseta2",29.99);
+const ProdutoLoja3 = new ProdutoLoja("camiseta3",29.99);
+const ProdutoLoja4 = new ProdutoLoja("camiseta4",29.99);
+const ProdutoLoja5 = new ProdutoLoja("camiseta5",29.99);
+
+//Criando a Loja
+const minhaLoja = new Loja();
+
+//adicionando produto ao estoque
+
+minhaLoja.adicionarProdutoAoEstoque(ProdutoLoja1);
+minhaLoja.adicionarProdutoAoEstoque(ProdutoLoja2);
+minhaLoja.adicionarProdutoAoEstoque(ProdutoLoja3);
+minhaLoja.adicionarProdutoAoEstoque(ProdutoLoja4);
+minhaLoja.adicionarProdutoAoEstoque(ProdutoLoja5);
+
+
+
+//adicionando produto carrinho
+
+minhaLoja.adicionarProdutoAoCarrinho(ProdutoLoja1);
+minhaLoja.adicionarProdutoAoCarrinho(ProdutoLoja2);
+minhaLoja.adicionarProdutoAoCarrinho(ProdutoLoja3);
+minhaLoja.adicionarProdutoAoCarrinho(ProdutoLoja4);
+minhaLoja.adicionarProdutoAoCarrinho(ProdutoLoja5);
+
+//Remover Produto do Carrinho de Compra
+minhaLoja.removeverProdutoCarrinho(ProdutoLoja1);
+
+
+//Remover Produto do Estoque da Loja
+minhaLoja.removerProdutoDoEstoque(ProdutoLoja1);
+
+//exibindo Produto do carrinho de compra
+minhaLoja.exibirProdutoCariinho();
+
+//Exibindo valor total do carrinho
+console.log("Total de carrinho de compra: R$"
++ minhaLoja.carrinhoDeComprar.calcularValorTotal());
+
+
